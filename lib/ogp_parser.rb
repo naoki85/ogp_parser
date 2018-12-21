@@ -3,10 +3,13 @@ require "open-uri"
 require "nokogiri"
 
 module OgpParser
+  class InvalidUrlError < StandardError; end
 
   # @param [String] url
   # @return [Hash || nil]
   def self.parse(url)
+    raise InvalidUrlError unless valid_url?(url)
+
     html = read_html(url)
     return nil if html.nil?
 
@@ -19,6 +22,10 @@ module OgpParser
   end
 
   private
+
+  def self.valid_url?(url)
+    url =~ URI::regexp
+  end
 
   def self.read_html(url)
     user_agent = { "User-Agent" => "OGP Parser" }
