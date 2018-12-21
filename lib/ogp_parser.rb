@@ -5,46 +5,50 @@ require "nokogiri"
 module OgpParser
   class InvalidUrlError < StandardError; end
 
-  # @param [String] url
-  # @return [Hash || nil]
-  def self.parse(url)
-    raise InvalidUrlError unless valid_url?(url)
+  class << self
 
-    html = read_html(url)
-    return nil if html.nil?
+    # @param [String] url
+    # @return [Hash || nil]
+    def parse(url)
+      raise InvalidUrlError unless valid_url?(url)
 
-    {
-        title: parse_by_type(html, 'title'),
-        description: parse_by_type(html, 'description'),
-        image: parse_by_type(html, 'image'),
-        url: parse_by_type(html, 'url')
-    }
-  end
+      html = read_html(url)
+      return nil if html.nil?
 
-  private
-
-  def self.valid_url?(url)
-    url =~ URI::regexp
-  end
-
-  def self.read_html(url)
-    user_agent = { "User-Agent" => "OGP Parser" }
-    charset = nil
-    html = open(url, user_agent) do |f|
-      charset = f.charset
-      f.read
+      {
+          title: parse_by_type(html, 'title'),
+          description: parse_by_type(html, 'description'),
+          image: parse_by_type(html, 'image'),
+          url: parse_by_type(html, 'url')
+      }
     end
-    Nokogiri::HTML.parse(html, nil, charset)
-  rescue StandardError => e
-    p "Error: #{e}"
-    nil
-  end
 
-  def self.parse_by_type(html, type)
-    if html.at("//meta[@property='og:#{type}']/@content")
-      html.at("//meta[@property='og:#{type}']/@content").value
-    else
-      ''
+    private
+
+    def valid_url?(url)
+      url =~ URI::regexp
     end
+
+    def read_html(url)
+      user_agent = { "User-Agent" => "OGP Parser" }
+      charset = nil
+      html = open(url, user_agent) do |f|
+        charset = f.charset
+        f.read
+      end
+      Nokogiri::HTML.parse(html, nil, charset)
+    rescue StandardError => e
+      p "Error: #{e}"
+      nil
+    end
+
+    def parse_by_type(html, type)
+      if html.at("//meta[@property='og:#{type}']/@content")
+        html.at("//meta[@property='og:#{type}']/@content").value
+      else
+        ''
+      end
+    end
+
   end
 end
