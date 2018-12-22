@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     ogp_parser (0.2.0)
-      nokogiri (~> 1.9)
+      nokogiri (>= 1.5)
 
 GEM
   remote: https://rubygems.org/
