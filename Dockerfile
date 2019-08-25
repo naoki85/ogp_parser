@@ -1,4 +1,4 @@
-FROM ruby:2.5.1
+FROM ruby:2.6.3
 
 ENV ROOT_PATH /ogp_parser
 RUN mkdir $ROOT_PATH
