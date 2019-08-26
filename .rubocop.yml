@@ -6,6 +6,9 @@ Metrics/LineLength:
   Exclude:
     - 'ogp_parser.gemspec'
     - 'spec/ogp_parser_spec.rb'
+Security/Open:
+  Exclude:
+    - 'lib/ogp_parser.rb' # Because of using OpenURI
 Style/Documentation:
   Exclude:
     - 'lib/ogp_parser.rb'

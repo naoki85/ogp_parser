@@ -24,7 +24,7 @@ RSpec.describe OgpParser do
     end
 
     context 'case invalid url' do
-      let(:url) { 'https://sample.com' }
+      let(:url) { 'httpssample.com' }
 
       it 'error occur' do
         expect { OgpParser.parse(url) }.to raise_error(OgpParser::InvalidUrlError)
