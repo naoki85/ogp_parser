@@ -1,0 +1,13 @@
+Metrics/BlockLength:
+  Exclude:
+    - 'ogp_parser.gemspec'
+    - 'spec/ogp_parser_spec.rb'
+Metrics/LineLength:
+  Exclude:
+    - 'ogp_parser.gemspec'
+    - 'spec/ogp_parser_spec.rb'
+Style/Documentation:
+  Exclude:
+    - 'lib/ogp_parser.rb'
+Style/FrozenStringLiteralComment:
+  Enabled: false

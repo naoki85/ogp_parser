@@ -1,12 +1,11 @@
-require "ogp_parser/version"
-require "open-uri"
-require "nokogiri"
+require 'ogp_parser/version'
+require 'open-uri'
+require 'nokogiri'
 
 module OgpParser
   class InvalidUrlError < StandardError; end
 
   class << self
-
     # @param [String] url
     # @return [Hash || nil]
     def parse(url)
@@ -16,21 +15,21 @@ module OgpParser
       return nil if html.nil?
 
       {
-          title: parse_by_type(html, 'title'),
-          description: parse_by_type(html, 'description'),
-          image: parse_by_type(html, 'image'),
-          url: parse_by_type(html, 'url')
+        title: parse_by_type(html, 'title'),
+        description: parse_by_type(html, 'description'),
+        image: parse_by_type(html, 'image'),
+        url: parse_by_type(html, 'url')
       }
     end
 
     private
 
     def valid_url?(url)
-      url =~ URI::regexp
+      url =~ URI::DEFAULT_PARSER.make_regexp
     end
 
     def read_html(url)
-      user_agent = { "User-Agent" => "OGP Parser" }
+      user_agent = { 'User-Agent' => 'OGP Parser' }
       charset = nil
       html = open(url, user_agent) do |f|
         charset = f.charset
@@ -49,6 +48,5 @@ module OgpParser
         ''
       end
     end
-
   end
 end
