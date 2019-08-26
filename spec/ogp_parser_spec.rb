@@ -30,5 +30,20 @@ RSpec.describe OgpParser do
         expect { OgpParser.parse(url) }.to raise_error(OgpParser::InvalidUrlError)
       end
     end
+
+    context 'could not get og:image' do
+      let(:url) { 'https://sample.com' }
+
+      before do
+        file_path = File.expand_path('../fixtures/no_meta_image.html', __FILE__)
+        html = File.read(file_path)
+        html = Nokogiri::HTML.parse(html, nil, 'utf-8')
+        allow(OgpParser).to receive(:read_html).and_return(html)
+      end
+
+      it 'should get from twitter:image_url' do
+        expect(subject[:image]).to eq 'http://test/image/from/twitter.png'
+      end
+    end
   end
 end

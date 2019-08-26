@@ -39,6 +39,7 @@ Then, you can get below.
   url: "http://sample.com"
 }
 ```
+Get `og:` tag in preference to `twitter:` tag.
 
 ## Development
 

@@ -44,6 +44,8 @@ module OgpParser
     def parse_by_type(html, type)
       if html.at("//meta[@property='og:#{type}']/@content")
         html.at("//meta[@property='og:#{type}']/@content").value
+      elsif html.at("//meta[@name='twitter:#{type}']/@content")
+        html.at("//meta[@name='twitter:#{type}']/@content").value
       else
         ''
       end
