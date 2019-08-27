@@ -35,7 +35,7 @@ RSpec.describe OgpParser do
       let(:url) { 'https://sample.com' }
 
       before do
-        file_path = File.expand_path('../fixtures/no_meta_image.html', __FILE__)
+        file_path = File.expand_path('fixtures/no_meta_image.html', __dir__)
         html = File.read(file_path)
         html = Nokogiri::HTML.parse(html, nil, 'utf-8')
         allow(OgpParser).to receive(:read_html).and_return(html)
