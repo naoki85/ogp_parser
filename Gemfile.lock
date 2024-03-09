@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ogp_parser (0.2.0)
+    ogp_parser (0.2.1)
       nokogiri (>= 1.5)
 
 GEM
